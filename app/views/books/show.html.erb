@@ -2,13 +2,21 @@
 <p><strong>Body:</strong> <%= @book.body %></p>
 
 <div>
+  <%= @book.favorites.count %>いいね
+  <% if @book.favorited_by?(current_user) %>
+    <%= link_to "♥", book_favorites_path(@book.id), method: :delete %>
+  <% else %>
+    <%= link_to "♡", book_favorites_path(@book.id), method: :post %>
+  <% end %>
+</div>
+
+<div>
   <% @book.comments.each do |comment| %>
     <p><%= image_tag comment.user.get_profile_image(100, 100) %> </p>
     <%= comment.user.name %>
     <%= comment.content %>
     <%= link_to "削除", book_comment_path(@book.id, comment.id), method: :delete %>
   <% end %>
-
 </div>
 
 <div>
