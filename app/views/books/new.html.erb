@@ -1,2 +1,37 @@
-<h1>Books#new</h1>
-<p>Find me in app/views/books/new.html.erb</p>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">投稿フォーム</h5>
+      <div class="form-body p-4">
+        <% if @book.errors.any? %>
+          <%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:<br>
+          <% @book.errors.full_messages.each do |message| %><br>
+            <%= message %>
+          <% end %>
+        <% end %>
+
+        <%= form_with model: @book do |f| %>
+          <div class="input-group mb-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Title</span>
+            </div>
+            <%= f.text_field :title, class: "form-control", placeholder: "Book" %>
+          </div>
+          <div class="input-group mb-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Body</span>
+            </div>
+            <%= f.text_area :body, class: "form-control", rows: "5", placeholder: "Contents" %>
+          </div>
+          <div class="field">
+            <label for="book_imgae">Image</label>
+            <%= f.file_field :image, accept: "image/*", class: "mb-5" %>
+          </div>
+          <div class="actions">
+            <%= f.submit "投稿", class: "btn btn-lg btn-block btn-info" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
